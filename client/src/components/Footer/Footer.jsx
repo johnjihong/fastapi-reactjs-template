@@ -10,7 +10,7 @@ import ListItem from "@material-ui/core/ListItem";
 import footerStyle from "assets/jss/material-dashboard-pro-react/components/footerStyle";
 
 function Footer({ ...props }) {
-  const { classes, fluid, white, rtlActive } = props;
+  const { classes, fluid, white } = props;
   var container = cx({
     [classes.container]: !fluid,
     [classes.containerFluid]: fluid,
@@ -32,34 +32,32 @@ function Footer({ ...props }) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a href="#home" className={block}>
-                {rtlActive ? "الصفحة الرئيسية" : "Home"}
+                Home
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#company" className={block}>
-                {rtlActive ? "شركة" : "Company"}
+                Company
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#portfolio" className={block}>
-                {rtlActive ? "بعدسة" : "Portfolio"}
+                Portfolio
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#blog" className={block}>
-                {rtlActive ? "مدونة" : "Blog"}
+                Blog
               </a>
             </ListItem>
           </List>
         </div>
         <p className={classes.right}>
           &copy; {1900 + new Date().getYear()}{" "}
-          <a href="https://www.creative-tim.com" className={anchor}>
-            {rtlActive ? "توقيت الإبداعية" : "Creative Tim"}
+          <a href="/" className={anchor}>
+            Creative Time
           </a>
-          {rtlActive
-            ? ", مصنوعة مع الحب لشبكة الإنترنت أفضل"
-            : ", made with love for a better web"}
+          , made with love for a better web
         </p>
       </div>
     </footer>
