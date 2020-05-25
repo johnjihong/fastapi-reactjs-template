@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import ChartistGraph from "react-chartist";
 // react plugin for creating vector maps
 import { VectorMap } from "react-jvectormap";
+import ReactEcharts from "echarts-for-react";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -71,15 +72,83 @@ var mapData = {
   US: 2920
 };
 
+
 class Dashboard extends React.Component {
   state = {
     value: 0
   };
-  componentDidMount() {
-    fetch('/api/foo')
-      .then(r => r.json())
-      .then(data => this.setState({ text: data.text }));
+  getOption = () => {
+    return {
+      title: {
+        text: '堆叠区域图'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['邮件营销', '联盟广告', '视频广告']
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          type: 'category',
+          boundaryGap: false,
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: '邮件营销',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name: '联盟广告',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+          name: '视频广告',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data: [150, 232, 201, 154, 190, 330, 410]
+        }
+      ]
+    };
   };
+  componentDidMount() {
+    // this.interval = setInterval(() =>
+    //     fetch('/api/foo')
+    //       .then(r => r.json())
+    //   .   then(data => this.setState({ text: data.text })), 1000
+    // )
+    fetch('/api/foo')
+        .then(r => r.json())
+        .then(data => this.setState({ text: data.text }))
+  };
+  // componentWillUnmount() {
+  //   clearInterval(this.interval);
+  // };
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -93,6 +162,10 @@ class Dashboard extends React.Component {
         <div>
           <h1>fastapi-reactjs-template</h1>
           <p>Result of API call: {this.state.text}</p>
+          <ReactEcharts
+            option={this.getOption()}
+            style={{height: '350px', width: '100%'}}
+            className='react_for_echarts' />
         </div>
         <GridContainer>
           <GridItem xs={12} sm={6} md={6} lg={3}>
