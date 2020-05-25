@@ -75,6 +75,11 @@ class Dashboard extends React.Component {
   state = {
     value: 0
   };
+  componentDidMount() {
+    fetch('/api/foo')
+      .then(r => r.json())
+      .then(data => this.setState({ text: data.text }));
+  };
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -85,6 +90,10 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+        <div>
+          <h1>fastapi-reactjs-template</h1>
+          <p>Result of API call: {this.state.text}</p>
+        </div>
         <GridContainer>
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
